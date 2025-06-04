@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Facial Emotion Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Facial Emotion Recognition</h1>
+        <form method="POST" enctype="multipart/form-data" id="upload-form">
+            <input type="file" name="image" id="imageInput" accept="image/*" required />
+            <div id="preview-container" style="display:none;">
+                <img id="imagePreview" src="#" alt="Image Preview" />
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if emotion %}
+            <h2>Predicted Emotion: <span>{{ emotion }}</span></h2>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
