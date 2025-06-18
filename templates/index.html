@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Facial Emotion Recognition</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <meta charset="UTF-8">
+    <title>Emotion Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Facial Emotion Recognition</h1>
-        <form method="POST" enctype="multipart/form-data" id="upload-form">
-            <input type="file" name="image" id="imageInput" accept="image/*" required />
-            <div id="preview-container" style="display:none;">
-                <img id="imagePreview" src="#" alt="Image Preview" />
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+    <h1>Facial Emotion Recognition</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Predict</button>
+    </form>
 
-        {% if emotion %}
-            <h2>Predicted Emotion: <span>{{ emotion }}</span></h2>
-        {% endif %}
-    </div>
+    {% if filename %}
+        <div class="preview">
+            <h3>Uploaded Image:</h3>
+            <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded">
+        </div>
+        <div class="result">
+            Predicted Emotion: <strong>{{ emotion }}</strong>
+        </div>
+    {% endif %}
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
