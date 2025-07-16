@@ -1,27 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Emotion Detection</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>Facial Emotion Recognition</h1>
+
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required>
+        <div id="preview-container" style="display:none;">
+            <img id="imagePreview" alt="Image Preview">
+        </div>
+        <input id="imageInput" type="file" name="image" accept="image/*" required>
         <button type="submit">Predict</button>
     </form>
 
-    {% if filename %}
-        <div class="preview">
-            <h3>Uploaded Image:</h3>
-            <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded">
-        </div>
-        <div class="result">
-            Predicted Emotion: <strong>{{ emotion }}</strong>
-        </div>
+    {% if image_url and emotion %}
+    <div class="result">
+        <h2>Predicted Emotion: <span>{{ emotion }}</span></h2>
+        <img src="{{ image_url }}" alt="Uploaded" style="margin-top: 20px; max-width: 100%; border-radius: 8px;">
+    </div>
     {% endif %}
+{% endblock %}
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+
+{% if history %}
+<hr style="margin: 40px 0;">
+<h2>Recent Predictions</h2>
+<div class="history-grid">
+    {% for item in history %}
+    <div class="history-card">
+        <img src="{{ item.image_url }}" alt="History Image">
+        <p><strong>{{ item.emotion }}</strong></p>
+        <small>{{ item.timestamp.strftime("%d %b %Y, %I:%M %p") }}</small>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
