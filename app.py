@@ -76,7 +76,7 @@ def index():
         item["image_url"] = item.get("cloudinary_url", "")
         item["timestamp"] = item.get("timestamp", datetime.now())
 
-    return render_template("index.html", emotion=emotion, image_url=image_url, history=history)
+    return render_template("code.html", emotion=emotion, image_url=image_url, history=history)
 
 if __name__ == "__main__":
     print("App started")
