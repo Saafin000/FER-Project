@@ -4,126 +4,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmotionSense AI</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .emotion-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emotion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .detected-emotion {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .webcam-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #emotionChart {
+            max-height: 300px;
+        }
+        @keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: slow-spin 4s linear infinite;
+}
+
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="hero-gradient text-white shadow-lg">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1aaeb762-c5c0-4228-a9ee-ca93658c200a.png" alt="EmotionSense AI logo" class="h-10 w-10 rounded-full">
-                    <span class="text-xl font-bold">EmotionSense AI</span>
-                </div>
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#" class="hover:text-gray-200">Home</a>
-                    <a href="#features" class="hover:text-gray-200">Features</a>
-                    <a href="#demo" class="hover:text-gray-200">Demo</a>
-                    <a href="#about" class="hover:text-gray-200">About</a>
-                </div>
-                <button class="md:hidden focus:outline-none">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
+    <!-- ✅ Sticky & Animated Navigation -->
+<nav class="hero-gradient text-white shadow-lg sticky top-0 z-50 transition-all duration-300">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1aaeb762-c5c0-4228-a9ee-ca93658c200a.png" alt="EmotionSense AI logo" class="h-10 w-10 rounded-full hover:scale-110 transition-transform duration-300">
+                <span class="text-xl font-bold hover:text-yellow-300 transition">EmotionSense AI</span>
             </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="hover:text-yellow-300 transition duration-300">Home</a>
+                <a href="#features" class="hover:text-yellow-300 transition duration-300">Features</a>
+                <a href="#demo" class="hover:text-yellow-300 transition duration-300">Demo</a>
+                <a href="#recent-emotions" class="hover:text-yellow-300 transition duration-300">Recent Emotions</a>
+                <a href="#about" class="hover:text-yellow-300 transition duration-300">About</a>
+            </div>
+            <button class="md:hidden focus:outline-none hover:text-yellow-300 transition">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="py-20 px-4">
-        <div class="container mx-auto text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6">Understand Emotions Through AI</h1>
-            <p class="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-                EmotionSense AI leverages deep learning to detect and analyze human emotions in real-time with remarkable accuracy.
-            </p>
-            <div class="flex justify-center space-x-4">
-                <a href="#demo" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
-                    Try Live Demo
-                </a>
-                <a href="#features" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-3 px-6 rounded-lg border border-gray-300 transition duration-300">
-                    Learn More
-                </a>
-            </div>
+
+   <!-- Hero Section -->
+<section class="py-20 px-4 animate-fade-in-up">
+    <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6 transition duration-700 hover:text-indigo-600 transform hover:scale-105">
+            Understand Emotions Through AI
+        </h1>
+        <p class="text-xl text-gray-600 mb-10 max-w-3xl mx-auto transition duration-500 hover:text-gray-800">
+            EmotionSense AI leverages deep learning to detect and analyze human emotions in real-time with remarkable accuracy.
+        </p>
+        <div class="flex justify-center space-x-4">
+            <a href="#demo" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-lg">
+                Try Live Demo
+            </a>
+            <a href="#features" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-3 px-6 rounded-lg border border-gray-300 transition-transform duration-300 transform hover:scale-105 hover:shadow-md">
+                Learn More
+            </a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Unique Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="emotion-card bg-white p-6 rounded-xl">
-                    <div class="text-indigo-600 mb-4">
-                        <i class="fas fa-brain text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Deep Learning Analysis</h3>
-                    <p class="text-gray-600">
-                        Our advanced neural network provides accurate emotion detection across diverse facial expressions.
-                    </p>
-                </div>
-                
-                <!-- Feature 2 -->
-                <div class="emotion-card bg-white p-6 rounded-xl">
-                    <div class="text-green-500 mb-4">
-                        <i class="fas fa-history text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Emotion History</h3>
-                    <p class="text-gray-600">
-                        Track and visualize your emotional patterns over time for self-awareness and improvement.
-                    </p>
-                </div>
-                
-                <!-- Feature 3 -->
-                <div class="emotion-card bg-white p-6 rounded-xl">
-                    <div class="text-purple-600 mb-4">
-                        <i class="fas fa-chart-line text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Real-time Insights</h3>
-                    <p class="text-gray-600">
-                        Get instant feedback on your emotional state through our intuitive dashboard.
-                    </p>
-                </div>
-            </div>
+
+   <section id="features" class="py-16 bg-gradient-to-br from-white via-gray-50 to-white text-gray-800">
+  <div class="container mx-auto px-6">
+    <h2 class="text-4xl font-extrabold text-center mb-12 tracking-tight text-indigo-700 underline decoration-pink-500 decoration-4">
+      🌟 Unique Features
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Feature 1 -->
+      <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-indigo-400/40 border border-gray-100 transform hover:scale-105 transition-all duration-300 text-center group hover:bg-indigo-50">
+        <div class="text-5xl mb-4 text-indigo-600 animate-bounce group-hover:animate-none transition-all duration-500">
+          🤖
         </div>
-    </section>
+        <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-700">Deep Learning Analysis</h3>
+        <p class="text-gray-600 group-hover:text-gray-800">Our advanced neural network provides accurate emotion detection across diverse facial expressions in real-time.</p>
+      </div>
 
-    <!-- Emotion Detection Upload Section -->
-    <section id="demo" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6 max-w-2xl">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Emotion Detection</h2>
-
-            <!-- Upload Box -->
-            <div class="bg-white rounded-2xl shadow-xl p-8">
-                <h3 class="text-xl font-semibold text-gray-700 text-center mb-6">Upload a Photo to Detect Emotion</h3>
-
-                <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 items-center">
-                    <!-- Upload Button -->
-                    <label for="fileInput" class="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition">
-                        <i class="fas fa-upload mr-2"></i>Choose Image
-                    </label>
-                    <input type="file" id="fileInput" name="image" accept="image/*" class="hidden" onchange="this.form.submit()" />
-                </form>
-
-                <!-- Show Result After Upload -->
-                {% if image_url and emotion %}
-                <div class="mt-6 text-center">
-                    <h4 class="text-lg font-medium text-gray-700">Predicted Emotion:</h4>
-                    <p class="text-2xl text-indigo-600 font-bold mt-2">{{ emotion }}</p>
-                    <img src="{{ image_url }}" alt="Uploaded Image" class="mt-4 rounded-xl shadow-md max-w-xs mx-auto border" />
-                </div>
-                {% endif %}
-            </div>
-
-            <!-- Emotion History -->
-            <div class="mt-12">
-                <h4 class="text-xl font-semibold text-gray-800 mb-4 text-center">Recent Emotions</h4>
-                <div id="emotionHistory" class="flex flex-wrap justify-center gap-3 overflow-x-auto px-2 py-4 bg-white rounded-xl shadow-md">
-                    <!-- Dynamic emotion history entries will be rendered here -->
-                </div>
-            </div>
+      <!-- Feature 2 -->
+      <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-pink-400/40 border border-gray-100 transform hover:scale-105 transition-all duration-300 text-center group hover:bg-pink-50">
+        <div class="text-5xl mb-4 text-pink-600 animate-pulse group-hover:animate-none transition-all duration-500">
+          📈
         </div>
-    </section>
+        <h3 class="text-xl font-bold mb-2 group-hover:text-pink-700">Emotion History</h3>
+        <p class="text-gray-600 group-hover:text-gray-800">Track and visualize your emotional patterns over time to develop deeper self-awareness and personal growth.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-green-400/40 border border-gray-100 transform hover:scale-105 transition-all duration-300 text-center group hover:bg-green-50">
+        <div class="text-5xl mb-4 text-green-600 animate-spin-slow group-hover:animate-none transition-all duration-500">
+          ⚡
+        </div>
+        <h3 class="text-xl font-bold mb-2 group-hover:text-green-700">Real-time Insights</h3>
+        <p class="text-gray-600 group-hover:text-gray-800">Get instant feedback on your emotional state through our beautifully intuitive and interactive dashboard.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Emotion Detection Upload Section -->
+<section id="demo" class="py-16 bg-gray-50">
+  <div class="container mx-auto px-6 max-w-5xl">
+    <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">Emotion Detection</h2>
+
+    <div class="flex flex-col md:flex-row gap-10">
+      <!-- Input Card (Left Side) -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 w-full md:w-1/2">
+        <h3 class="text-xl font-semibold text-gray-700 text-center mb-6">Upload a Photo to Detect Emotion</h3>
+
+        <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 items-center">
+          <label for="fileInput"
+            class="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition">
+            <i class="fas fa-upload mr-2"></i>Choose Image
+          </label>
+          <input type="file" id="fileInput" name="image" accept="image/*" class="hidden" required
+            onchange="previewImage(event)" />
+
+          <!-- Image Preview -->
+          <img id="imagePreview" class="hidden w-48 h-48 object-cover rounded-lg border-2 border-gray-300 shadow-md" />
+
+          <button type="submit"
+            class="mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition">
+            <i class="fas fa-search mr-2"></i>Detect Emotion
+          </button>
+        </form>
+      </div>
+
+      <!-- Output Card (Right Side) -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 w-full md:w-1/2">
+        {% if image_url %}
+        <div id="result" class="text-center">
+          <h2 class="text-2xl font-bold text-gray-800">Detected Emotion:</h2>
+          <p class="text-xl text-indigo-600 mt-2">{{ emotion }}</p>
+          <img src="{{ image_url }}" alt="Uploaded Image"
+            class="mt-4 mx-auto w-64 h-64 object-cover rounded-lg shadow-lg border-2 border-indigo-600">
+        </div>
+        {% else %}
+        <p class="text-center text-gray-500 mt-20">Upload an image and click detect to see the result.</p>
+        {% endif %}
+      </div>
+    </div>
+
+   <!-- Emotion History with Images -->
+<div class="mt-12 scroll-mt-24" id="recent-emotions">
+  <h4 class="text-xl font-semibold text-gray-800 mb-6 text-center">Recent Emotions</h4>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
+    {% for item in history %}
+      <div class="bg-white rounded-xl shadow-md p-4 text-center">
+        <img src="{{ item.image_url }}" alt="Emotion Image" class="w-full h-48 object-cover rounded-md mb-3">
+        <p class="text-lg font-semibold text-gray-800">{{ item.emotion }}</p>
+        <p class="text-sm text-gray-500">{{ item.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- JavaScript to show image preview -->
+<script>
+  function previewImage(event) {
+    const input = event.target;
+    const preview = document.getElementById('imagePreview');
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.classList.remove('hidden');
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+
+
+
+
 
     <!-- About Section -->
     <section id="about" class="py-16 bg-white">
@@ -149,30 +257,338 @@
     </section>
 
     <!-- Footer -->
-    <footer class="hero-gradient text-white py-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <div class="flex items-center space-x-2">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f8b72670-4896-451e-8d4c-636fb8f1b72c.png" alt="Small EmotionSense AI logo" class="h-8 w-8 rounded-full">
-                        <span class="text-lg font-bold">EmotionSense AI</span>
-                    </div>
-                    <p class="mt-2 text-sm">Emotion recognition powered by deep learning.</p>
-                </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="hover:text-gray-200"><i class="fab fa-github text-xl"></i></a>
-                    <a href="#" class="hover:text-gray-200"><i class="fab fa-twitter text-xl"></i></a>
-                    <a href="#" class="hover:text-gray-200"><i class="fab fa-linkedin text-xl"></i></a>
-                </div>
+<footer class="hero-gradient text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+        <div class="flex flex-col items-center">
+            <div class="flex flex-col items-center space-y-2">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f8b72670-4896-451e-8d4c-636fb8f1b72c.png" alt="Small EmotionSense AI logo" class="h-10 w-10 rounded-full">
+                <span class="text-lg font-bold">EmotionSense AI</span>
+                <p class="text-sm">Emotion recognition powered by deep learning.</p>
             </div>
-            <div class="border-t border-gray-200 mt-6 pt-6 text-center text-sm">
-                <p>© 2023 EmotionSense AI. All rights reserved.</p>
+
+            <div class="flex space-x-6 mt-4">
+                <a href="https://github.com/Saafin000" target="_blank" rel="noopener noreferrer" class="hover:text-gray-200"><i class="fab fa-github text-xl"></i></a>
+                <a href="https://x.com/SaafinH" target="_blank" rel="noopener noreferrer" class="hover:text-gray-200"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="https://www.linkedin.com/in/saafin-14300b281/?originalSubdomain=in" target="_blank" rel="noopener noreferrer" class="hover:text-gray-200"><i class="fab fa-linkedin text-xl"></i></a>
             </div>
         </div>
-    </footer>
+
+        <div class="border-t border-gray-200 mt-6 pt-6 text-sm">
+            <p>© 2023 EmotionSense AI. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // DOM Elements
+        const webcam = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const emotionText = document.getElementById('emotionText');
+        const confidenceValue = document.getElementById('confidenceValue');
+        const dominantEmotion = document.getElementById('dominantEmotion');
+        const emotionHistory = document.getElementById('emotionHistory');
+        const captureBtn = document.getElementById('captureBtn');
+        const startStopBtn = document.getElementById('startStopBtn');
+        
+        // Chart instance
+        let emotionChart;
+        
+        // Variables
+        let isDetecting = false;
+        let detectionInterval;
+        let historyItems = [];
+        
+        // Initialize webcam
+        async function initWebcam() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                webcam.srcObject = stream;
+                
+                // Wait for video to be ready
+                webcam.onloadedmetadata = () => {
+                    // Set canvas dimensions to match video
+                    canvas.width = webcam.videoWidth;
+                    canvas.height = webcam.videoHeight;
+                    
+                    // Enable capture button
+                    captureBtn.disabled = false;
+                    startStopBtn.disabled = false;
+                };
+            } catch (err) {
+                console.error("Error accessing webcam:", err);
+                alert("Could not access webcam. Please ensure you have granted camera permissions.");
+            }
+        }
+        
+        // Capture frame from webcam
+        function captureFrame() {
+            ctx.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+            return canvas.toDataURL('image/jpeg');
+        }
+        
+        // Detect emotions from image
+        async function detectEmotions(imageUrl) {
+            try {
+                const response = await fetch('/detect', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image: imageUrl }),
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayResults(data.emotion, data.probabilities);
+                    addToHistory(data.emotion, data.probabilities[data.emotion]);
+                } else {
+                    console.error("Detection failed:", data.error);
+                    alert("Emotion detection failed. Please try again.");
+                }
+            } catch (err) {
+                console.error("Error detecting emotions:", err);
+            }
+        }
+        
+        // Display detection results
+        function displayResults(emotion, probabilities) {
+            // Show dominant emotion
+            dominantEmotion.classList.remove('hidden');
+            emotionText.textContent = emotion;
+            
+            // Format confidence percentage
+            const confidence = Math.round(probabilities[emotion] * 100);
+            confidenceValue.textContent = confidence;
+            
+            // Color based on emotion
+            const emotionColors = {
+                'Angry': 'text-red-500',
+                'Disgust': 'text-green-600',
+                'Fear': 'text-purple-500',
+                'Happy': 'text-yellow-500',
+                'Sad': 'text-blue-500',
+                'Surprise': 'text-orange-500',
+                'Neutral': 'text-gray-500'
+            };
+            
+            emotionText.className = `text-4xl font-bold detected-emotion mb-4 ${emotionColors[emotion]}`;
+            
+            // Update chart
+            updateChart(probabilities);
+        }
+        
+        // Update emotion distribution chart
+        function updateChart(probabilities) {
+            if (emotionChart) {
+                emotionChart.destroy();
+            }
+            
+            const ctx = document.getElementById('emotionChart').getContext('2d');
+            
+            // Format data for chart
+            const labels = Object.keys(probabilities);
+            const data = Object.values(probabilities);
+            const backgroundColors = [
+                'rgba(239, 68, 68, 0.7)',  // Angry - red
+                'rgba(16, 185, 129, 0.7)', // Disgust - green
+                'rgba(139, 92, 246, 0.7)', // Fear - purple
+                'rgba(234, 179, 8, 0.7)',  // Happy - yellow
+                'rgba(59, 130, 246, 0.7)', // Sad - blue
+                'rgba(249, 115, 22, 0.7)', // Surprise - orange
+                'rgba(107, 114, 128, 0.7)' // Neutral - gray
+            ];
+            
+            emotionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Probability',
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderColor: backgroundColors.map(color => color.replace('0.7', '1')),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${Math.round(context.raw * 100)}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 1,
+                            ticks: {
+                                callback: function(value) {
+                                    return `${Math.round(value * 100)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Add detection to history
+        function addToHistory(emotion, confidence) {
+            // Limit history to 10 items
+            if (historyItems.length >= 10) {
+                historyItems.shift();
+            }
+            
+            historyItems.push({
+                emotion,
+                confidence,
+                timestamp: new Date().toLocaleTimeString()
+            });
+            
+            // Update UI
+            renderHistory();
+        }
+        
+        // Render emotion history
+        function renderHistory() {
+            emotionHistory.innerHTML = '';
+            
+            historyItems.forEach((item, index) => {
+                const emotionColors = {
+                    'Angry': 'bg-red-100 text-red-800',
+                    'Disgust': 'bg-green-100 text-green-800',
+                    'Fear': 'bg-purple-100 text-purple-800',
+                    'Happy': 'bg-yellow-100 text-yellow-800',
+                    'Sad': 'bg-blue-100 text-blue-800',
+                    'Surprise': 'bg-orange-100 text-orange-800',
+                    'Neutral': 'bg-gray-100 text-gray-800'
+                };
+                
+                const emotionBadge = document.createElement('div');
+                emotionBadge.className = `flex flex-col items-center justify-center p-3 rounded-lg min-w-[80px] ${emotionColors[item.emotion]}`;
+                emotionBadge.innerHTML = `
+                    <div class="font-bold">${item.emotion}</div>
+                    <div class="text-xs">${Math.round(item.confidence * 100)}%</div>
+                    <div class="text-xs text-gray-500 mt-1">${item.timestamp}</div>
+                `;
+                
+                emotionHistory.appendChild(emotionBadge);
+            });
+        }
+        
+        // Event Listeners
+        document.getElementById('uploadBtn').addEventListener('click', handleFileUpload);
+        
+        captureBtn.addEventListener('click', () => {
+            const imageUrl = captureFrame();
+            detectEmotions(imageUrl);
+        });
+        
+        startStopBtn.addEventListener('click', () => {
+            if (!isDetecting) {
+                // Start detection
+                isDetecting = true;
+                startStopBtn.textContent = 'Stop Detection';
+                startStopBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                startStopBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+                
+                // Run detection every 3 seconds
+                detectionInterval = setInterval(() => {
+                    const imageUrl = captureFrame();
+                    detectEmotions(imageUrl);
+                }, 3000);
+                
+                // Initial detection
+                const imageUrl = captureFrame();
+                detectEmotions(imageUrl);
+            } else {
+                // Stop detection
+                isDetecting = false;
+                startStopBtn.textContent = 'Start Detection';
+                startStopBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+                startStopBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                clearInterval(detectionInterval);
+            }
+        });
+        
+        // Handle file upload
+        function handleFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            fileInput.click();
+            
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                    const previewImg = document.getElementById('uploadedImagePreview');
+                    previewImg.src = event.target.result;
+                    
+                    detectEmotions(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            initWebcam();
+            
+            // Initialize empty chart
+            updateChart({
+                'Angry': 0,
+                'Disgust': 0,
+                'Fear': 0,
+                'Happy': 0,
+                'Sad': 0,
+                'Surprise': 0,
+                'Neutral': 0
+            });
+        });
+  const historyContainer = document.getElementById("emotionHistory");
+  const newEmotion = "{{ emotion }}";
+
+  if (newEmotion) {
+    const tag = document.createElement("div");
+    tag.className = "px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium animate-fade-in";
+    tag.textContent = newEmotion;
+    historyContainer.prepend(tag);
+  }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  function previewImage(event) {
+    const input = event.target;
+    const preview = document.getElementById('imagePreview');
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.classList.remove('hidden');
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+}
+    </script>
 </body>
 </html>
+

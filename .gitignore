@@ -1,0 +1,53 @@
+# 🛡️ Secrets
+.env
+*.key
+*.pem
+
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.h5
+*.pt
+
+# 📦 Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# 📁 VS Code and IDE-specific
+.vscode/
+.idea/
+*.swp
+
+# 🔍 Logs and cache
+*.log
+*.tmp
+*.bak
+*.cache
+.cache/
+*.DS_Store
+
+# 📂 Flask instance folder (if used)
+instance/
+*.sqlite3
+
+# 🌍 Node/npm (if frontend uses npm)
+node_modules/
+build/
+dist/
+*.lock
+
+# 📷 Uploaded media
+uploads/
+media/
+
+# 💾 System files
+Thumbs.db
+.DS_Store
+
+# 🔀 Git backup
+*.orig

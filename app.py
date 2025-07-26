@@ -9,25 +9,33 @@ from tensorflow.keras.preprocessing import image
 import cloudinary
 import cloudinary.uploader
 
+from dotenv import load_dotenv
+
+
+# Load environment variables from .env
+load_dotenv()
+
+
 # Flask setup
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# MongoDB setup
-client = MongoClient('mongodb://localhost:27017/')
+# MongoDB Atlas connection
+MONGODB_URI = os.getenv('MONGODB_URI')
+client = MongoClient(MONGODB_URI)
 db = client['facial_emotion_db']
 collection = db['predictions']
 
-# Cloudinary Config
+# Cloudinary configuration
 cloudinary.config(
-    cloud_name='dwyo1otv2',
-    api_key='833691138629215',
-    api_secret='RY09s2aN9yNTNFxv-CKgpCGaJ_8'
+    cloud_name=os.getenv('CLOUD_NAME'),
+    api_key=os.getenv('API_KEY'),
+    api_secret=os.getenv('API_SECRET')
 )
 
-# Load model
-model = load_model(os.path.join(app.config['UPLOAD_FOLDER'], 'emotion_model.h5'))
+# Load model from models folder (only this line changed)
+model = load_model(os.path.join('uploads', 'emotion_model.h5'))
 emotion_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
 def predict_emotion(image_path):
@@ -69,14 +77,16 @@ def index():
             os.remove(local_path)
 
     # Step 5: Get latest 5 predictions
-    history = list(collection.find().sort("timestamp", -1).limit(5))
+    history = list(
+        collection.find({"cloudinary_url": {"$exists": True}}).sort("timestamp", -1).limit(6)
+    )
 
     # Ensure cloudinary_url fallback
     for item in history:
         item["image_url"] = item.get("cloudinary_url", "")
         item["timestamp"] = item.get("timestamp", datetime.now())
 
-    return render_template("code.html", emotion=emotion, image_url=image_url, history=history)
+    return render_template("index.html", emotion=emotion, image_url=image_url, history=history)
 
 if __name__ == "__main__":
     print("App started")
