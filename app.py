@@ -15,13 +15,6 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv()
 
-try:
-    client.admin.command('ping')
-    print("✅ MongoDB connection successful.")
-except Exception as e:
-    print("❌ MongoDB connection failed:", e)
-
-
 
 # Flask setup
 app = Flask(__name__)
